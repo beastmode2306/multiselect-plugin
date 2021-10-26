@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="multiselect/multiselect.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="multiselect-doors" class="multiselect">
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div id="multiselect-fences" class="multiselect">
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div id="multiselect-walls" class="multiselect">
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div id="multiselect-lattices" class="multiselect">
+        </div>
+    </div>
+
+    
+
+    <script src='/multiselect/multiselect.js'></script>
+    <script>
+        const doors = new MultiSelect('#multiselect-doors', {
+            title: "Двери",
+            data: {
+                "woodenDoor" :"Деревянная дверь",
+                "metalDoor": "Металическая дверь",
+                "garageDoor": "Гаражная дверь",
+                "MVKdoor": "МВК дверь"
+            },
+            onSelect(el) {
+                console.log('selected', this.data[el.dataset.for])
+            },
+            onDeselect(el) {
+                console.log('deselected', this.data[el.dataset.for])
+
+            },
+            onInput(el) {
+                console.log('data recieved', el.target.value, this.data[el.target.dataset.for])
+            }
+        })
+
+        const fences = new MultiSelect('#multiselect-fences', {
+            title: "Заборы",
+            data: {
+                "woodenFence": "Деревянный забор",
+                "stoneFence": "Каменный забор"
+            }
+        })
+
+        const walls = new MultiSelect('#multiselect-walls', {
+            title: "Стенки",
+            data: {
+                "woodenWall": "Деревянная стенка",
+                "stoneWall": "Каменная стенка",
+                "metalWall": "Металическая стенка",
+                "MVKwall": "МВК стенка",
+            }
+        })
+
+        const lattices = new MultiSelect('#multiselect-lattices', {
+            title: "Решетки",
+            data: {
+                "woodenLattice": "Деревянные решетки",
+                "metalLattice": "Металлические решетки",
+                "glassLattice": "Решетка из бронированного стекла",
+                "MVKlattice": "МВК решетки",
+
+            }
+        })
+
+        const boom = document.querySelector('#boom')
+        boom.addEventListener('click', () => {
+            const doors_data = doors.gatherInfo()
+            const fences_data = fences.gatherInfo()
+            const walls_data = walls.gatherInfo()
+            const lattices_data = lattices.gatherInfo()
+
+            const datas = [doors_data, fences_data, walls_data, lattices_data]
+        })
+    </script>
+</body>
+</html>
